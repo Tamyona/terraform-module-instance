@@ -18,7 +18,6 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "homework6" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
-  availability_zone = "${var.region}a"
   key_name = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
   user_data = file("apache.sh")
