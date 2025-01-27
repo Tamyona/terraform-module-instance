@@ -1,9 +1,9 @@
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.6.20250115.0-kernel-6.1-x86_64"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 
   filter {
@@ -11,12 +11,12 @@ data "aws_ami" "amazon_linux" {
     values = ["hvm"]
   }
 
-  owners = ["137112412989"]# Canonical
+  owners = ["099720109477"] # Canonical
 }
 
 
 resource "aws_instance" "homework6" {
-  ami           = data.aws_ami.amazon_linux.id
+  ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
   key_name = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
